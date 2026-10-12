@@ -843,19 +843,21 @@ export const Explainer: React.FC<ExplainerProps> = (props) => {
       {/* Layer 0: Animated gradient background — driven by theme */}
       <AnimatedBackground theme={theme} />
 
-      {/* Layer 1: Visual scenes */}
+      {/* Layer 1: Visual scenes — wrapped in a bottom-padded container so captions never overlap */}
       {cuts.map((cut) => {
         const from = Math.round(cut.in_seconds * fps);
         const duration = Math.round((cut.out_seconds - cut.in_seconds) * fps);
 
         return (
           <Sequence key={cut.id} from={from} durationInFrames={duration}>
-            <SceneRenderer cut={cut} theme={theme} />
+            <AbsoluteFill style={{ paddingBottom: 140 }}>
+              <SceneRenderer cut={cut} theme={theme} />
+            </AbsoluteFill>
           </Sequence>
         );
       })}
 
-      {/* Layer 2: Overlays (section titles, stat reveals, hero titles) */}
+      {/* Layer 2: Overlays (section titles, stat reveals, hero titles) — also clamped above caption area */}
       {overlays?.map((overlay, i) => {
         const from = Math.round(overlay.in_seconds * fps);
         const duration = Math.round(
@@ -864,7 +866,9 @@ export const Explainer: React.FC<ExplainerProps> = (props) => {
 
         return (
           <Sequence key={`overlay-${i}`} from={from} durationInFrames={duration}>
-            <OverlayRenderer overlay={overlay} theme={theme} />
+            <AbsoluteFill style={{ paddingBottom: 140 }}>
+              <OverlayRenderer overlay={overlay} theme={theme} />
+            </AbsoluteFill>
           </Sequence>
         );
       })}
@@ -873,9 +877,9 @@ export const Explainer: React.FC<ExplainerProps> = (props) => {
       {captions && captions.length > 0 && (
         <CaptionOverlay
           words={captions}
-          wordsPerPage={6}
-          fontSize={42}
-          color={theme.textColor}
+          wordsPerPage={props.captionWordsPerPage ?? 6}
+          fontSize={props.captionFontSize ?? 42}
+          color={props.captionColor ?? theme.textColor}
           highlightColor={theme.captionHighlightColor}
           backgroundColor={theme.captionBackgroundColor}
         />

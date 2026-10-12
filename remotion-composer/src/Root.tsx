@@ -16,6 +16,9 @@ import { ProductReveal, ProductRevealProps } from "./components/ProductReveal";
 import { CaptionOverlay, WordCaption } from "./components/CaptionOverlay";
 import { CollageBurst, CollageBurstProps } from "./CollageBurst";
 import { LyricOverlay, LyricOverlayProps } from "./LyricOverlay";
+import { LeaderboardRace } from "./LeaderboardRace";
+import { QAAtelier, QAProps } from "./QAAtelier";
+import { QAAtelierV3, QAV3Props } from "./QAAtelierV3";
 
 // ---------------------------------------------------------------------------
 // Theme System — prevents every video from looking like dark fintech
@@ -148,6 +151,63 @@ export const Root: React.FC = () => {
           captions: [],
           audio: {},
         }}
+        calculateMetadata={calculateMetadata}
+      />
+      <Composition
+        id="ExplainerVertical"
+        component={Explainer}
+        durationInFrames={30 * 200}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          cuts: [],
+          overlays: [],
+          captions: [],
+          audio: {},
+        }}
+        calculateMetadata={calculateMetadata}
+      />
+      <Composition
+        id="QAAtelier"
+        component={QAAtelier}
+        durationInFrames={30 * 200}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          scenes: [],
+          cards: [],
+          captions: [],
+          narrationSrc: "",
+          musicSrc: "",
+        } as QAProps}
+        calculateMetadata={calculateMetadata}
+      />
+      <Composition
+        id="QAAtelierV3"
+        component={QAAtelierV3}
+        durationInFrames={30 * 60}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          hookStart: 0,
+          hookEnd: 0,
+          hookLine: "",
+          hookWord: "",
+          hookIcon: "",
+          empathyStart: 0,
+          empathyEnd: 0,
+          empathyLine: "",
+          empathyReplace: "",
+          solutionStart: 0,
+          steps: [],
+          ctaStart: 0,
+          ctaLine: "",
+          narrationSrc: "",
+          musicSrc: "",
+        } as QAV3Props}
         calculateMetadata={calculateMetadata}
       />
       <Composition
@@ -329,6 +389,15 @@ export const Root: React.FC = () => {
           fadeOutSeconds: 1.5,
           overlay: true,
         } as EndTagProps}
+      />
+      <Composition
+        id="LeaderboardRace"
+        component={LeaderboardRace}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{}}
       />
     </>
   );
