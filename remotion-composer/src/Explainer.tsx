@@ -877,9 +877,9 @@ export const Explainer: React.FC<ExplainerProps> = (props) => {
       {captions && captions.length > 0 && (
         <CaptionOverlay
           words={captions}
-          wordsPerPage={props.captionWordsPerPage ?? 6}
-          fontSize={props.captionFontSize ?? 42}
-          color={props.captionColor ?? theme.textColor}
+          wordsPerPage={(props.captionWordsPerPage as number | undefined) ?? 6}
+          fontSize={(props.captionFontSize as number | undefined) ?? 42}
+          color={(props.captionColor as string | undefined) ?? theme.textColor}
           highlightColor={theme.captionHighlightColor}
           backgroundColor={theme.captionBackgroundColor}
         />

@@ -104,3 +104,8 @@ venv/
 
 # Local Wan / diffusers GPU environment
 .venv-wan/
+
+# 本地工作环境（2026-10-18 增补）
+.workbuddy/
+debug.log
+*.log.tmp
